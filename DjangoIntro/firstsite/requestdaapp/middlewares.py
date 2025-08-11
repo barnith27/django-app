@@ -32,7 +32,7 @@ class CountRequestMiddleware:
     def process_exception(self, request: HttpRequest, exception: Exception):
         self.exceptions_count += 1
         print('got',self.exceptions_count, 'exception so far')
-
+'''
 class ThrottlingMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -45,7 +45,7 @@ class ThrottlingMiddleware:
         # Проверяем, был ли недавний запрос с этого IP
         if ip in self.ip_last_request:
             last_request_time = self.ip_last_request[ip]
-            if current_time - last_request_time < 1.0:  # 1 секунда между запросами
+            if current_time - last_request_time < 1000.0:  # 1 секунда между запросами
                 return HttpResponseForbidden("Слишком частые запросы. Пожалуйста, подождите.")
 
         # Обновляем время последнего запроса
@@ -57,3 +57,4 @@ class ThrottlingMiddleware:
         ip_address = request.META.get('REMOTE_ADDR')
         print(f"IP адрес клиента: {ip_address}")
         return ip_address
+'''
