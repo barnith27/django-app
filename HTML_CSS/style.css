@@ -1,0 +1,132 @@
+ html, body {
+        background-color: #f6f7f9;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      .navbar {
+  background-color: transparent !important; /* Полная прозрачность */
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+      header{
+        height: 100px;
+        padding: 0 40px;
+      }
+
+      header > div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+      }
+
+      header, header a, header span, header {
+        font-weight: 400;
+        font-size: 13px;
+        margin-right: 20px;
+      }
+
+
+      a {
+        text-decoration: none;
+        color: black;
+
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .services {
+        width: 150px;
+      }
+
+      .lite-button {
+        border: 1px solid black;
+        background-color: transparent;
+      }
+
+      .dark-button {
+        border: 1px solid #3d52fe;
+        background-color: #3d52fe;
+        color: white;
+      }
+
+      button {
+        padding: 10px 30px;
+        cursor: pointer;
+        border-radius: 6px;
+        font-weight: 400;
+        font-size: 13px;
+      }
+
+      .price-info {
+        background-color: #3d52fe;
+        color: white;
+        padding: 40px 0;
+      }
+
+      .price-info {
+        background-color: #3d52fe;
+        color: white;
+        padding: 40px 0;
+      }
+
+      .price-info > div h2 {
+        font-size: 35px;
+        line-height: 1.3;
+        margin-bottom: 50px;
+      }
+      .price-info > div p {
+        font-size: 11px;
+        opacity: 0.8;
+        margin-bottom: 30px;
+      }
+
+      .price-info .fixed-container {
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .price-info h2,
+      .price-info p {
+        width: 50%; /* Устанавливаем ширину 50% */
+        margin: 0; /* Убираем стандартные отступы */
+      }
+
+
+      .padding-40: {
+        padding: 40px;
+      }
+
+      footer {
+        padding: 40px;
+      }
+
+
+      footer > div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+      }
+      footer, footer a, footer span, footer {
+        font-weight: 400;
+        font-size: 13px;
+      }
+
+
+      .social-icons {
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+      }
+
+      .social-icons img {
+          margin-top: 20px;
+          height: 13px;
+      }
+
+
+      .active {
+        margin-bottom: 8px;
+      }
