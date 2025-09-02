@@ -1,14 +1,13 @@
-from operator import truediv
 from timeit import default_timer
-
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import Group
-from django.contrib.messages import success
+from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
-from dns.update import Update
+
 
 from .forms import ProductForm, OrderForm, GroupForm
 from .models import Product
@@ -53,12 +52,27 @@ class ProductsListView(ListView):
     context_object_name = 'products'
     queryset = Product.objects.filter(archived=False)
 
-class ProductCreateView(CreateView):
+
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     fields = 'name', 'price', 'description', 'discount'
     success_url = reverse_lazy('shopapp:products_list')
 
-class ProductUpdateView(UpdateView):
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        if not (request.user.is_superuser or request.user.has_perm('shopapp.add_product')):
+            from django.core.exceptions import PermissionDenied
+            raise PermissionDenied("У вас нет прав для создания продукта")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class ProductUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shopapp.change_product'
     model = Product
     fields = 'name', 'price', 'description', 'discount'
     template_name_suffix = '_update_form'
@@ -76,13 +90,14 @@ class ProductDeleteView(DeleteView):
         self.object.save()
         return HttpResponseRedirect(success_url)
 
-class OrdersListView(ListView):
+class OrdersListView(LoginRequiredMixin, ListView):
     queryset = (
         Order.objects
         .select_related("user")
         .prefetch_related("products"))
 
-class OrderDetailView(DetailView):
+class OrderDetailView(LoginRequiredMixin, DetailView):
+    permission_required = 'view_order'
     queryset = (
         Order.objects
         .select_related("user")
@@ -101,6 +116,8 @@ class OrderUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('shopapp:order_details', kwargs={'pk': self.object.pk})
 
-class OrderDeleteView(DeleteView):
+
+class OrderDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shopapp.view_order'
     model = Order
     success_url = reverse_lazy('shopapp:orders_list')

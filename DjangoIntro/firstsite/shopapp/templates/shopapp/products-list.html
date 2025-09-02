@@ -19,7 +19,11 @@ Product list
 {% else %}
 <h3> No products yet</h3>
 {% endif %}
-<div>
-  <a href="{% url 'shopapp:product_create' %}"> Create product</a>
-</div>
+
+{% if product and product.pk %}
+{% if perms.shopapp.can_edit_product or product.author == user or user.is_superuser %}
+    <a href="{% url 'shopapp:product_update' product.pk %}">Edit product</a>
+    <a href="{% url 'shopapp:product_delete' product.pk %}">Delete product</a>
+{% endif %}
+{% endif %}
 {% endblock %}
