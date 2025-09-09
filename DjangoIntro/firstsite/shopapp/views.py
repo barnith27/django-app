@@ -2,7 +2,7 @@ from timeit import default_timer
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
@@ -121,3 +121,24 @@ class OrderDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'shopapp.view_order'
     model = Order
     success_url = reverse_lazy('shopapp:orders_list')
+
+class OrdersExportView(UserPassesTestMixin, View):
+    def test_func(self):
+        return self.request.user.is_staff
+
+    def handle_no_permission(self):
+        return JsonResponse({'error': 'Forbidden: Staff access required'}, status=403)
+
+    def get(self, request: HttpResponse) -> JsonResponse:
+        orders = Order.objects.select_related('user').prefetch_related('products').all()
+        orders_data = []
+        for order in orders:
+            orders_data.append({
+                'pk': order.pk,
+                'delivery_address': order.delivery_address,
+                'promocode': order.promocode,
+                'user': order.user.username if order.user else None,
+                'products': [product.name for product in order.products.all()]
+            })
+
+        return JsonResponse(orders_data, safe=False)

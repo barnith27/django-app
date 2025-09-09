@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import ShopIndexView, GroupsListView, OrdersListView, \
     ProductDetailsView, ProductsListView, OrderDetailView, ProductCreateView, ProductUpdateView, ProductDeleteView, \
-    OrderCreateView, OrderUpdateView, OrderDeleteView
+    OrderCreateView, OrderUpdateView, OrderDeleteView, OrdersExportView
 
 app_name = 'shopapp'
 urlpatterns = [
@@ -18,4 +18,5 @@ urlpatterns = [
     path('orders/new_order/', OrderCreateView.as_view(), name='order_create'),
     path('orders/<int:pk>/update', OrderUpdateView.as_view(), name='order_update'),
     path('orders/<int:pk>/delete', OrderDeleteView.as_view(), name='order_delete'),
+    path('orders/export', OrdersExportView.as_view(), name='order_export'),
 ]

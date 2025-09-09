@@ -1,0 +1,101 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$Q8Y4kC81IbpWio86vTRpLr$1fyhDcPmbdjidO7iCeqKCBjgDF980Rwa7VY9ukVYiBU=",
+      "last_login": "2025-09-08T08:30:34.230Z",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "Кристина",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2025-07-21T07:57:23Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$FdHlhZJVYV6SbXOJJRtuC5$S+3VPxqpIUpUDs02MHGfD9Oc7eyEX66K93dvTYoCCYw=",
+      "last_login": "2025-08-25T07:42:59.913Z",
+      "is_superuser": false,
+      "username": "drake",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-08-15T19:08:27Z",
+      "groups": [],
+      "user_permissions": [
+        32
+      ]
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$6tuNhpKXLiL5EzVgBDTlTP$DtqSwMsbtRFg7wMaGqYEi0wgcg5wx/XAZeAptQSLQCY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "nick",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-08-15T19:08:54.714Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "!P6BmFYOeN8df3DYGrrxxyNqcAAC4y9MzOlRJ8iQb",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "sam",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-08-15T19:09:27.859Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$6dCyInRAqvVjV63FslDR4l$h+HslX5xrHuSs0NGIqtWXiOJFmNr3gtDdvJ/7tbCDF0=",
+      "last_login": "2025-09-02T07:25:15.623Z",
+      "is_superuser": false,
+      "username": "jack",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2025-08-26T05:34:59Z",
+      "groups": [],
+      "user_permissions": [
+        25,
+        38,
+        37,
+        26,
+        27,
+        28
+      ]
+    }
+  }
+]
