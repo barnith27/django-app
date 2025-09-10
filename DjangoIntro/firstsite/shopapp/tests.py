@@ -45,9 +45,6 @@ class OrderDetailViewTestCase(TestCase):
 
 
 class OrdersExportTestCase(TestCase):
-    fixtures = [
-        'user-fixture',
-    ]
     @classmethod
     def setUpClass(cls):
         cls.staff_user = User.objects.create_user(
@@ -63,7 +60,17 @@ class OrdersExportTestCase(TestCase):
     def setUp(self):
         self.client.force_login(self.staff_user)
 
+        self.product = Product.objects.create(name='Test Product', price=100, author=self.staff_user)
+        self.order = Order.objects.create(
+            delivery_address='Test Address 123',
+            promocode='TEST123',
+            user=self.staff_user
+        )
+        self.order.products.add(self.product)
 
+    def tearDown(self):
+        self.order.delete()
+        self.product.delete()
 
     def test_order_export(self):
         response = self.client.get(
@@ -72,10 +79,8 @@ class OrdersExportTestCase(TestCase):
         )
         data = response.json()
 
-        db_order_ids = list(User.objects.values_list('pk', flat=True))
-        print(db_order_ids)
-        response_order_ids = [user['pk'] for user in data]
-        print(list(User.objects.values_list('username', flat=True)))
-       # self.assertEqual(sorted(db_order_ids), sorted(response_order_ids))
-        print("All users:", list(User.objects.values_list('username', flat=True)))
-      #  print("All orders:", list(Order.objects.values_list('pk', flat=True)))
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]['delivery_address'], 'Test Address 123')
+        self.assertEqual(data[0]['user'], 'staff_user')
+        self.assertEqual(data[0]['products'], ['Test Product'])
+        self.assertEqual(response.status_code, 200)
