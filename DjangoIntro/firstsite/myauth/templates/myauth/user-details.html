@@ -13,7 +13,7 @@
   <p>First name: {{ profile.user.first_name}}</p>
   <p>Last name: {{ profile.user.last_name }}</p>
   <p>Email: {{ profile.user.email }}</p>
-  <p>Bio: {{ profile.user.bio|default:"No bio" }}</p>
+  <p>Bio: {{ profile.bio }}</p>
 </div>
 {% if request.user.is_staff or request.user == profile.user %}
     <a href="{% url 'myauth:user-update' pk=profile.user.pk %}">Edit User</a>
