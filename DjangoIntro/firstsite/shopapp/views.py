@@ -131,6 +131,7 @@ class OrdersExportView(UserPassesTestMixin, View):
 
     def get(self, request: HttpResponse) -> JsonResponse:
         orders = Order.objects.select_related('user').prefetch_related('products').all()
+        context_object_name = 'orders_data'
         orders_data = []
         for order in orders:
             orders_data.append({

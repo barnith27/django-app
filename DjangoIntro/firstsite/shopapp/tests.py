@@ -46,9 +46,7 @@ class OrderDetailViewTestCase(TestCase):
 
 class OrdersExportTestCase(TestCase):
     fixtures = [
-        'user-fixture.json',
-        'product-fixture.json',
-        'order',
+        'user-fixture',
     ]
     @classmethod
     def setUpClass(cls):
@@ -65,7 +63,19 @@ class OrdersExportTestCase(TestCase):
     def setUp(self):
         self.client.force_login(self.staff_user)
 
+
+
     def test_order_export(self):
-        print("Users:", User.objects.count())
-        print("Products:", Product.objects.count())
-        print("Order:", Order.objects.count())
+        response = self.client.get(
+            reverse('shopapp:order_export'),
+            HTTP_USER_AGENT='TestClient/1.0'
+        )
+        data = response.json()
+
+        db_order_ids = list(User.objects.values_list('pk', flat=True))
+        print(db_order_ids)
+        response_order_ids = [user['pk'] for user in data]
+        print(list(User.objects.values_list('username', flat=True)))
+       # self.assertEqual(sorted(db_order_ids), sorted(response_order_ids))
+        print("All users:", list(User.objects.values_list('username', flat=True)))
+      #  print("All orders:", list(Order.objects.values_list('pk', flat=True)))
