@@ -9,6 +9,13 @@ About me
 </h1>
 {% if user.is_authenticated %}
 <h2> Detail</h2>
+
+{% if profile.avatar %}
+    <img src="{{ profile.avatar.url }}" alt="{{ profile.avatar.name }}" width="150px">
+{% else %}
+    <p> Нет фото </p>
+{%endif%}
+
 <p>Username: {{ user.username }}</p>
 <p>First name: {{ user.first_name}}</p>
 <p>Last name: {{ user.last_name }}</p>
@@ -17,4 +24,6 @@ About me
 {% else %}
 <h2>User is anonymous</h2>
 {%endif%}
+<a href="{% url 'myauth:user-update' pk=profile.user.pk %}">Edit User</a>
+<a href="{% url 'myauth:profile-update' pk=profile.user.pk %}">Edit Profile</a>
 {% endblock %}

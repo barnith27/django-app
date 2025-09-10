@@ -3,7 +3,7 @@ from django.urls import path
 from werkzeug.utils import redirect
 
 from .views import get_cookie_view, set_cookie_view, set_session_view, get_session_view, MyLogoutView, AboutMeView, \
-    RegisterView, logout_view
+    RegisterView, logout_view, UsersProfile, UserDetailView, UserUpdateView, ProfileUpdateView
 
 app_name = 'myauth'
 
@@ -16,6 +16,10 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('about-me/', AboutMeView.as_view(), name='about-me'),
     path('register/', RegisterView.as_view(), name='register'),
+    path('users', UsersProfile.as_view(), name='users-profile'),
+    path('user/<int:pk>/', UserDetailView.as_view(), name='user-details'),
+    path('user/<int:pk>/update/', UserUpdateView.as_view(), name='user-update'),
+    path('profile/<int:pk>/update/', ProfileUpdateView.as_view(), name='profile-update'),
 
     path('cookie/get', get_cookie_view, name='cookie-get'),
     path('cookie/set', set_cookie_view, name='cookie-set'),
