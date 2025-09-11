@@ -1,29 +1,29 @@
 {% extends 'shopapp/base.html' %}
-
+{% load i18n %}
 {% block title %}
-Product list
+{% translate 'Product list' %}
 {% endblock %}
 
 {% block body %}
-<h1>Products:</h1>
+<h1>{% translate 'Products:' %}</h1>
 {% if products %}
 <div>
   {% for product in products %}
   <div>
-    <p><a href="{% url 'shopapp:product_details' pk=product.pk %}"> Name: {{ product.name }} </a> </p>
-    <p> Price: {{ product.price }}</p>
-    <p> Discount: {% firstof product.discount 'no discount'%}</p>
+    <p><a href="{% url 'shopapp:product_details' pk=product.pk %}"> {% translate 'Name' context 'product name' %}: {{ product.name }} </a> </p>
+    <p> {% translate 'Price' %}: {{ product.price }}</p>
+      {% translate 'no discount' as no_discount %}
+    <p> {% translate 'Discount' %}: {% firstof product.discount no_discount%}</p>
+
+    {% if perms.shopapp.can_edit_product or product.author == user or user.is_superuser %}
+      <a href="{% url 'shopapp:product_update' product.pk %}">{% translate 'Edit product' %}</a>
+      <a href="{% url 'shopapp:product_delete' product.pk %}">{% translate 'Delete product' %}</a>
+    {% endif %}
+
   </div>
   {% endfor %}
 </div>
 {% else %}
-<h3> No products yet</h3>
-{% endif %}
-
-{% if product and product.pk %}
-{% if perms.shopapp.can_edit_product or product.author == user or user.is_superuser %}
-    <a href="{% url 'shopapp:product_update' product.pk %}">Edit product</a>
-    <a href="{% url 'shopapp:product_delete' product.pk %}">Delete product</a>
-{% endif %}
+<h3>{% translate 'No products yet' %} </h3>
 {% endif %}
 {% endblock %}

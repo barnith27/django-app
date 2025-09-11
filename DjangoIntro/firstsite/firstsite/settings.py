@@ -12,12 +12,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
-from django.conf.global_settings import LOGIN_REDIRECT_URL, MEDIA_URL
+from django.conf.global_settings import LOGIN_REDIRECT_URL, MEDIA_URL, LOCALE_PATHS
 from django.urls import reverse_lazy
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+from django.utils.translation import gettext_lazy as _
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -53,9 +53,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'requestdaapp.middlewares.setup_user_on_request_middleware',
     'requestdaapp.middlewares.CountRequestMiddleware',
-   # 'requestdaapp.middlewares.ThrottlingMiddleware',
 ]
 
 ROOT_URLCONF = 'firstsite.urls'
@@ -119,7 +119,15 @@ USE_I18N = True
 
 USE_TZ = True
 
+USE_L10N = True
 
+LOCALE_PATHS = [
+    BASE_DIR / 'locale/'
+]
+LANGUAGES = [
+    ('en', _('English')),
+    ('ru', _('Russian')),
+]
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 

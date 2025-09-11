@@ -1,0 +1,139 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-11 11:28+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: firstsite/settings.py:128
+msgid "English"
+msgstr "Английский"
+
+#: firstsite/settings.py:129
+msgid "Russian"
+msgstr "Русский"
+
+#: shopapp/models.py:14 shopapp/templates/shopapp/products-details.html:9
+msgid "Product"
+msgstr "Товар"
+
+#: shopapp/models.py:15
+#, fuzzy
+#| msgid "Products:"
+msgid "Products"
+msgstr "Товары"
+
+#: shopapp/models.py:25 shopapp/templates/shopapp/products-details.html:15
+msgid "Author"
+msgstr "Автор"
+
+#: shopapp/models.py:36
+msgid "Order"
+msgstr "Заказ"
+
+#: shopapp/models.py:37
+msgid "Orders"
+msgstr "Заказы"
+
+#: shopapp/templates/shopapp/products-details.html:5
+msgid "Product details"
+msgstr "Детали товара"
+
+#: shopapp/templates/shopapp/products-details.html:11
+msgid "Description"
+msgstr "Описание"
+
+#: shopapp/templates/shopapp/products-details.html:12
+#: shopapp/templates/shopapp/products-list.html:14
+msgid "Price"
+msgstr "Цена"
+
+#: shopapp/templates/shopapp/products-details.html:13
+#: shopapp/templates/shopapp/products-list.html:16
+msgid "Discount"
+msgstr "Скидка"
+
+#: shopapp/templates/shopapp/products-details.html:14
+msgid "Archived"
+msgstr "Архивный"
+
+#: shopapp/templates/shopapp/products-details.html:21
+#, python-format
+msgid ""
+"\n"
+"        The product has %(count)s color.\n"
+"    "
+msgid_plural ""
+"\n"
+"        The product has %(count)s colors.\n"
+"    "
+msgstr[0] ""
+"\n"
+"        Продукт доступен в %(count)s цвете\n"
+"    "
+msgstr[1] ""
+"\n"
+"        Продукт доступен в %(count)s цветах\n"
+"    "
+msgstr[2] ""
+"\n"
+"        Продукт доступен в %(count)s цветах\n"
+"    "
+
+#: shopapp/templates/shopapp/products-details.html:29
+msgid "Back to products list"
+msgstr "Вернуться к списку товаров"
+
+#: shopapp/templates/shopapp/products-details.html:32
+#: shopapp/templates/shopapp/products-list.html:19
+msgid "Edit product"
+msgstr "Редактировать товар"
+
+#: shopapp/templates/shopapp/products-details.html:34
+#: shopapp/templates/shopapp/products-list.html:20
+msgid "Delete product"
+msgstr "Удалить товар"
+
+#: shopapp/templates/shopapp/products-list.html:4
+msgid "Product list"
+msgstr "Список товаров"
+
+#: shopapp/templates/shopapp/products-list.html:8
+msgid "Products:"
+msgstr "Товары"
+
+#: shopapp/templates/shopapp/products-list.html:13
+msgctxt "product name"
+msgid "Name"
+msgstr "Название"
+
+#: shopapp/templates/shopapp/products-list.html:15
+msgid "no discount"
+msgstr "нет скидки"
+
+#: shopapp/templates/shopapp/products-list.html:27
+msgid "No products yet"
+msgstr "Нет товаров"
+
+#: shopapp/templates/shopapp/shop-index.html:4
+msgid "Shop index"
+msgstr "Shop индекс"
+
+#: shopapp/templates/shopapp/shop-index.html:7
+msgid "Hello Shop Index!"
+msgstr ""

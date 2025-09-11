@@ -1,10 +1,10 @@
 {%extends 'shopapp/base.html' %}
 
 {% block title %}
-Shop index
+{% translate 'Shop index' %}
 {% endblock %}
 {% block body %}
-<h1>Hello Shop Index!</h1>
+<h1>{% translate 'Hello Shop Index!' %}</h1>
 <div>
     <ul>
         {% for name, price in products %}
