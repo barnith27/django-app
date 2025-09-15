@@ -7,12 +7,15 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.utils.translation import gettext_lazy as _
-
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.viewsets import ModelViewSet
 
 from .forms import ProductForm, OrderForm, GroupForm
 from .models import Product
 from .models import Order
+from .serializers import OrderSerializer, ProductSerializer
+
 
 class ShopIndexView(View):
     def get(self, request: HttpRequest) -> HttpResponse:
@@ -144,3 +147,33 @@ class OrdersExportView(UserPassesTestMixin, View):
             })
 
         return JsonResponse(orders_data, safe=False)
+
+class ProductViewSet(ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['name', 'description']
+    ordering_fields = [
+        'name',
+        'description',
+        'price',
+        'discount',
+        'archived',
+    ]
+
+class OrderViewSet(ModelViewSet):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
+    filterset_fields = [
+        'promocode',
+        'created_at',
+        'user',
+        'products',
+    ]
+    ordering_fields = [
+        'promocode',
+        'created_at',
+        'user',
+        'products',
+    ]
