@@ -1,3 +1,4 @@
+import logging
 from timeit import default_timer
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import Group
@@ -16,6 +17,7 @@ from .models import Product
 from .models import Order
 from .serializers import OrderSerializer, ProductSerializer
 
+log = logging.getLogger(__name__)
 
 class ShopIndexView(View):
     def get(self, request: HttpRequest) -> HttpResponse:

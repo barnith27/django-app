@@ -20,6 +20,7 @@ click==8.2.1
 config==0.5.1
 cryptography==45.0.3
 Django==5.2.4
+django-debug-toolbar==6.0.0
 django-filter==25.1
 djangorestframework==3.16.1
 dnspython==2.7.0
