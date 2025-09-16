@@ -44,11 +44,8 @@ if DEBUG:
     hostname, ignored, ips = socket.gethostbyname_ex(socket.gethostname())
     INTERNAL_IPS.append('10.0.2.2')
     INTERNAL_IPS.extend(
-        [ip[: ip.rfind('.')] + '.1' for ip in ips]
+        [ip[:ip.rfind('.')] + '.1' for ip in ips]
     )
-    DEBUG_TOOLBAR_CONFIG = {
-        'SHOW_TOOLBAR_CALLBACK': lambda request: True,
-    }
 
 # Application definition
 
