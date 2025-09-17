@@ -2,6 +2,7 @@ import logging
 from timeit import default_timer
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import Group
+from django.contrib.syndication.views import Feed
 from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
@@ -179,3 +180,23 @@ class OrderViewSet(ModelViewSet):
         'user',
         'products',
     ]
+
+class LatestProductsFeed(Feed):
+    title = 'Latest products feed'
+    description = 'Updates on changes and addition latest products'
+
+    def link(self):
+        return reverse('shopapp:products_list')
+
+    def items(self):
+        return (
+            Product.objects
+            .filter(created_at__isnull=False)
+            .order_by('-created_at')[:5]
+        )
+
+    def item_title(self, item: Product):
+        return item.name
+
+    def item_description(self, item: Product):
+        return item.description

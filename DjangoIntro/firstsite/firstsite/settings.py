@@ -39,13 +39,13 @@ INTERNAL_IPS = [
 ]
 
 
-if DEBUG:
-    import socket
-    hostname, ignored, ips = socket.gethostbyname_ex(socket.gethostname())
-    INTERNAL_IPS.append('10.0.2.2')
-    INTERNAL_IPS.extend(
-        [ip[:ip.rfind('.')] + '.1' for ip in ips]
-    )
+#if DEBUG:
+ #   import socket
+  #  hostname, ignored, ips = socket.gethostbyname_ex(socket.gethostname())
+   # INTERNAL_IPS.append('10.0.2.2')
+    #INTERNAL_IPS.extend(
+     #   [ip[:ip.rfind('.')] + '.1' for ip in ips]
+    #)
 
 # Application definition
 
@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admindocs',
+    'django.contrib.sitemaps',
     'debug_toolbar',
     'rest_framework',
     'django_filters',

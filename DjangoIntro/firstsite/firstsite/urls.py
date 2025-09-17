@@ -20,11 +20,20 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import sitemaps
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('req/', include('requestdaapp.urls')),
     path('accounts/', include('myauth.urls')),
     path('blog/', include('blogapp.urls')),
+    path(
+        'sitemap.xml',
+        sitemap,
+        {'sitemaps': sitemaps},
+        name='django.contrib.sitemaps.views.sitemap',
+    ),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/schema/swagger', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
 ]
