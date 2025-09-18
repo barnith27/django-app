@@ -102,6 +102,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'firstsite.wsgi.application'
 
+CACHES = {
+	'default': {
+	'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+	'LOCATION': 'var/tmp/django_cache'
+	},
+}
+CACHE_MIDDLEWARE_SECONDS = 200
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

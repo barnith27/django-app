@@ -1,0 +1,33 @@
+{% extends 'shopapp/base.html' %}
+{% load cache %}
+{% load i18n %}
+{% block title %}
+{% translate 'User order list' %}
+{% endblock %}
+
+{% block body %}
+  <div>
+    <h1>Пользователь {% firstof owner.first_name owner.username %} выполнил следующие заказы</h1>
+    <p>Username: {{ owner.username }}</p>
+    <p>First name: {{ owner.first_name}}</p>
+    <p>Last name: {{ owner.last_name }}</p>
+    <p>Email: {{ owner.email }}</p>
+  </div>
+
+{% cache 100 pk owner %}
+<div>
+    {% if object_list %}
+      <div>
+        {% for order in object_list %}
+        <div>
+        <p><a href="{% url 'shopapp:order_details' pk=order.pk %}">Order #{{ order.pk }}</a></p>
+      </div>
+    {% endfor %}
+      </div>
+    {% else %}
+      <h3>У пользователя {% firstof owner.first_name owner.username %} ещё нет заказов</h3>
+    {% endif %}
+</div>
+{% endcache %}
+
+{% endblock %}

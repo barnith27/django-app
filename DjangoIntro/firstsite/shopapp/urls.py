@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter
 from .views import ShopIndexView, GroupsListView, OrdersListView, \
     ProductDetailsView, ProductsListView, OrderDetailView, ProductCreateView, ProductUpdateView, ProductDeleteView, \
     OrderCreateView, OrderUpdateView, OrderDeleteView, OrdersExportView, ProductViewSet, OrderViewSet, \
-    LatestProductsFeed
+    LatestProductsFeed, UserOrdersListView, UserExportView
 
 app_name = 'shopapp'
 router = DefaultRouter()
@@ -29,4 +29,6 @@ urlpatterns = [
     path('orders/<int:pk>/delete/', OrderDeleteView.as_view(), name='order_delete'),
     path('orders/export/', OrdersExportView.as_view(), name='order_export'),
 
+    path('users/<int:user_id>/orders/', UserOrdersListView.as_view(), name='user_order_list'),
+    path('users/<int:user_id>/orders/export/', UserExportView.as_view(), name='user_export'),
 ]

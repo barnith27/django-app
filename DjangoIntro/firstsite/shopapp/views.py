@@ -1,8 +1,10 @@
 import logging
 from timeit import default_timer
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 from django.contrib.syndication.views import Feed
+from django.core import serializers
+from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
@@ -123,7 +125,6 @@ class OrderUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('shopapp:order_details', kwargs={'pk': self.object.pk})
 
-
 class OrderDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'shopapp.view_order'
     model = Order
@@ -200,3 +201,38 @@ class LatestProductsFeed(Feed):
 
     def item_description(self, item: Product):
         return item.description
+
+class UserExportView(LoginRequiredMixin, View):
+
+    def get(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        cache_key = f'user_{user_id}_orders_export'
+        data = cache.get(cache_key)
+        if data is None:
+            orders = Order.objects.filter(user=user).order_by('pk')
+            data = serializers.serialize('json', orders)
+        cache.set(cache_key, data, 200)
+        return HttpResponse(data, content_type='application/json')
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
+
+class UserOrdersListView(LoginRequiredMixin, ListView):
+    template_name = 'shopapp/user-order-list.html'
+    def get_queryset(self):
+        user_id = self.kwargs['user_id']
+        self.owner = get_object_or_404(User, id=user_id)
+        return Order.objects.filter(user=self.owner)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["owner"] = self.owner
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
+
